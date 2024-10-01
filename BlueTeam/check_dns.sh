@@ -13,4 +13,4 @@ else
     else
         echo "Failed to restart $service"
     fi
-Fi
+fi
