@@ -1,0 +1,12 @@
+[*] First time use detected
+[*] Creating home directory structure
+[*] Creating default workspace
+[*] Initializing WINRM protocol database
+[*] Initializing LDAP protocol database
+[*] Initializing SMB protocol database
+[*] Initializing SSH protocol database
+[*] Initializing RDP protocol database
+[*] Initializing MSSQL protocol database
+[*] Initializing FTP protocol database
+[*] Copying default configuration file
+[*] Generating SSL certificate
