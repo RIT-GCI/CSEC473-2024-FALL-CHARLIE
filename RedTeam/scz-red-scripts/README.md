@@ -1,7 +1,7 @@
 # Webshell 
 By Stacey Zheng
 
-A custom webshell tool acting as a service backdoor but disguised as a "Welcome to nginx!" page.
+A custom webshell tool acting as a service backdoor but disguised as a "Welcome to nginx!" or "Welcome to Apache!" page.
 
 ## Prerequisites
 - Git
@@ -19,9 +19,12 @@ cd /var/www/html
 sudo git clone https://github.com/Szheng25/webshell.git
 ```
 
-3) Copy webshell.php into index.php 
+3) Copy webshell_nginx.php or webshell_apache.php into index.php 
 ```
-sudo cp webshell/webshell.php index.php
+sudo cp webshell/webshell_nginx.php index.php
+```
+```
+sudo cp webshell/webshell_apache.php index.php
 ```
 
 4) Use curl to execute commands like `ls`, `ip a`, and `cat /etc/passwd` 
