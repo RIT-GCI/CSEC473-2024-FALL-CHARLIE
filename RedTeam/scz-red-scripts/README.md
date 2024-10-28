@@ -14,7 +14,7 @@ A custom webshell tool acting as a service backdoor but disguised as a "Welcome 
 cd /var/www/html
 ```
 
-2) Clone repo from Git 
+2) Clone repo from Git (or download the files)
 ```
 sudo git clone https://github.com/Szheng25/webshell.git
 ```
