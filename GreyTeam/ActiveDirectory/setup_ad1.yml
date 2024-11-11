@@ -1,0 +1,26 @@
+---
+- name: Initial Setup and Restart
+  hosts: winserv
+  tasks:
+    - name: Copy initial setup script to server
+      win_copy:
+        src: /home/debian/ansible/powershell_scripts/initial_setup1.ps1
+        dest: C:\Users\Administrator\initial_setup1.ps1
+
+    - name: Run initial setup script
+      win_shell: powershell.exe -ExecutionPolicy Bypass -File C:\Users\Administrator\initial_setup1.ps1
+
+    - name: Restart the server
+      win_reboot:
+        msg: "Reboot initiated by Ansible for initial setup completion"
+        pre_reboot_delay: 60
+        reboot_timeout: 360
+
+    - name: Copy complete promotion script to server
+      win_copy:
+        src: /home/debian/ansible/powershell_scripts/complete_promotion1.ps1
+        dest: C:\Users\Administrator\complete_promotion1.ps1
+
+    - name: Run complete promotion script
+      win_shell: powershell.exe -ExecutionPolicy Bypass -File C:\Users\Administrator\complete_promotion1.ps1
+

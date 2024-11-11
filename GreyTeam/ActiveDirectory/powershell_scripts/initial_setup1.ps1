@@ -2,7 +2,7 @@
 
 # Define the credentials
 $User = "Administrator"
-$PWord = ConvertTo-SecureString -String "testpassword123!" -AsPlainText -Force
+$PWord = ConvertTo-SecureString -String "bankpassword2024!" -AsPlainText -Force
 $cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User, $PWord
 
 # Install required roles and features
@@ -10,6 +10,6 @@ Install-WindowsFeature -Name AD-Domain-Services, DNS, Remote-Desktop-Services -I
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 
 # Configure DNS
-New-DnsServerPrimaryZone -Name "sentinelbank.com" -ZoneFile "sentinelbank.com.dns" -DynamicUpdate None
+New-DnsServerPrimaryZone -Name "sentinelbank1.com" -ZoneFile "sentinelbank1.com.dns" -DynamicUpdate None
 
 Restart-Computer 
