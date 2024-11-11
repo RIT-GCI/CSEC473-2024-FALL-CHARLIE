@@ -14,9 +14,5 @@ Install-ADDSForest -DomainName "sentinelbank1.com" `
     -LogPath "C:\Windows\NTDS" `
     -SysvolPath "C:\Windows\SYSVOL" `
     -Force:$true `
-<<<<<<< HEAD:GreyTeam/ActiveDirectory/powershell_scripts/complete_promotion1.ps1
     -SafeModeAdministratorPassword (ConvertTo-SecureString -String "bankpassword2024!!" -AsPlainText -Force) `
-=======
-    -SafeModeAdministratorPassword (ConvertTo-SecureString -String "bankpassword2024!" -AsPlainText -Force) `
->>>>>>> 47ad3bb6ea203041cc5e76931d7db76c19e5d3ac:GreyTeam/ActiveDirectory/powershell_scripts/complete_promotion.ps1
     -Verbose
