@@ -13,7 +13,7 @@
     - name: Restart the server
       win_reboot:
         msg: "Reboot initiated by Ansible for initial setup completion"
-        pre_reboot_delay: 240
+        pre_reboot_delay: 60
         reboot_timeout: 3600
 
     - name: Copy complete promotion script to server
