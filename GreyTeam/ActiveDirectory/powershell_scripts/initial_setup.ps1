@@ -2,7 +2,7 @@
 
 # Define the credentials
 $User = "Administrator"
-$PWord = ConvertTo-SecureString -String "testpassword123!" -AsPlainText -Force
+$PWord = ConvertTo-SecureString -String "bankpassword2024!" -AsPlainText -Force
 $cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User, $PWord
 
 # Install required roles and features
