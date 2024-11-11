@@ -14,7 +14,11 @@
       win_reboot:
         msg: "Reboot initiated by Ansible for initial setup completion"
         pre_reboot_delay: 60
+<<<<<<< HEAD:GreyTeam/ActiveDirectory/setup_ad1.yml
         reboot_timeout: 360
+=======
+        reboot_timeout: 3600
+>>>>>>> 47ad3bb6ea203041cc5e76931d7db76c19e5d3ac:GreyTeam/ActiveDirectory/setup_ad.yml
 
     - name: Copy complete promotion script to server
       win_copy:
