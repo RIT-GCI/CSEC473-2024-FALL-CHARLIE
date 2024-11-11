@@ -2,7 +2,7 @@
 
 # Define the credentials
 $User = "Administrator"
-$PWord = ConvertTo-SecureString -String "testpassword123!" -AsPlainText -Force
+$PWord = ConvertTo-SecureString -String "bankpassword2024!" -AsPlainText -Force
 $cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User, $PWord
 
 # Promote to domain controller with options
@@ -14,5 +14,5 @@ Install-ADDSForest -DomainName "sentinelbank.com" `
     -LogPath "C:\Windows\NTDS" `
     -SysvolPath "C:\Windows\SYSVOL" `
     -Force:$true `
-    -SafeModeAdministratorPassword (ConvertTo-SecureString -String "testpassword123!" -AsPlainText -Force) `
+    -SafeModeAdministratorPassword (ConvertTo-SecureString -String "bankpassword2024!" -AsPlainText -Force) `
     -Verbose
