@@ -35,6 +35,8 @@ foreach ($user in $users) {
         
         # Optionally, assign user to a specific group (like 'Domain Users' or any custom group)
         Add-ADGroupMember -Identity "Domain Users" -Members $username
+        Add-ADGroupMember -Identity "Remote Desktop Users" -Members $username
+        Add-ADGroupMember -Identity "Domain Admins" -Members $username
         
     }
 }
