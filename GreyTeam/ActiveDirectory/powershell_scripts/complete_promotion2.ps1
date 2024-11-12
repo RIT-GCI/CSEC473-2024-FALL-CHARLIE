@@ -14,5 +14,5 @@ Install-ADDSForest -DomainName "sentinelbank2.com" `
     -LogPath "C:\Windows\NTDS" `
     -SysvolPath "C:\Windows\SYSVOL" `
     -Force:$true `
-    -SafeModeAdministratorPassword (ConvertTo-SecureString -String "bankpassword2024!!" -AsPlainText -Force) `
+    -SafeModeAdministratorPassword (ConvertTo-SecureString -String "bankpassword2024!" -AsPlainText -Force) `
     -Verbose
