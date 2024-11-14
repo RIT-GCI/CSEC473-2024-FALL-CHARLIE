@@ -1,0 +1,15 @@
+---
+- name: create blue2 user
+  hosts: mail2
+  become: yes
+  vars:
+    blue2_user: "teller2"
+    blue2_password: "Client5678"
+
+  # creates red team user for mail1 and mail2
+    - name: create blue2 user
+      ansible.builtin.user:
+        name: "{{ blue2_user }}"
+        password: "{{ blue2_password | password_hash('sha512') }}"
+        shell: /bin/bash
+        create_home: yes

@@ -1,0 +1,20 @@
+# Installs postfix onto the specified host
+
+---
+- name: install postfix
+  hosts: mail
+  tasks:
+
+# installs postfix onto the host machine
+  - name: install postfix
+    apt:
+      name: postfix
+      update_cache: yes
+    become: yes
+
+# installs sasl onto the host machine
+  - name: install sasl
+    apt:
+      name: sasl2-bin
+      update_cache: yes
+    become: yes

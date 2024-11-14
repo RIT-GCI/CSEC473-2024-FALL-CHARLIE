@@ -1,0 +1,26 @@
+---
+- name: create courier user
+  hosts: mail
+  become: yes
+  vars:
+    new_user: "courier"
+    user_password: "password"
+    red_user: "robber"
+    red_password: "heistTime123"
+
+  tasks:
+  # creates courier user for mail1 and mail2
+    - name: create the user
+      ansible.builtin.user:
+        name: "{{ new_user }}"
+        password: "{{ user_password | password_hash('sha512') }}"
+        shell: /bin/bash
+        create_home: yes
+
+  # creates red team user for mail1 and mail2
+    - name: create red user
+      ansible.builtin.user:
+        name: "{{ red_user }}"
+        password: "{{ red_password | password_hash('sha512') }}"
+        shell: /bin/bash
+        create_home: yes

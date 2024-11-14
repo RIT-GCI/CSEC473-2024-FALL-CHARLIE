@@ -1,0 +1,88 @@
+---
+- name: configure postfix and sasl
+  hosts: mail2
+  tasks:
+
+# changes the hostname within the postfix configuration file
+  - name: change hostname
+    lineinfile:
+      path: /etc/postfix/main.cf
+      search_string: 'my hostname = '
+      line: 'myhostname = mail2.sentinelbank2.com'
+    become: yes
+
+# changes the domain name within the postfix configuration file for myorigin
+  - name: change the domain name 
+    lineinfile:
+      path: /etc/postfix/main.cf
+      search_string: '#myorigin = /etc/mail'
+      line: 'myorigin = $mydomain'
+    become: yes
+
+# changes the network for where emails are sent to the scoring engine and blue subnet
+  - name: change the network  
+    lineinfile:
+      path: /etc/postfix/main.cf
+      search_string: '#mynetworks = '
+      line: 'mynetworks = 10.22.2.0/8, 10.22.17.45/32'
+    become: yes
+
+# changes smtpd_tls_security_level to be encrypted
+  - name: enable tls security level
+    lineinfile:
+      path: /etc/postfix/main.cf
+      search_string: '#smtpd_tls_security_level ='
+      line: 'smtpd_tls_security_level = encrypt'
+    become: yes
+
+# changes smtpd_sasl_auth_enabled to yes
+  - name: enable sasl authentication
+    lineinfile:
+      path: /etc/postfix/main.cf
+      search_string: '#smtpd_sasl_auth_enable = '
+      line: 'smtpd_sasl_auth_enable =  yes'
+    become: yes
+
+# makes sure that sasl directory exists before configuring smtpd.conf
+  - name: make sure sasl directory exists
+    ansible.builtin.file:
+      path: /etc/postfix/sasl
+      state: directory
+      owner: root
+      group: root
+      mode: '0755'
+    become: yes
+
+# create smtpd config file for sasl authentication
+  - name: configure SASL auth 
+    ansible.builtin.copy:
+      dest: /etc/postfix/sasl/smtpd.conf
+      content: |
+        pwcheck_method: saslauthd
+        mech_list: plain login
+      owner: root
+      group: root
+      mode: '0644'
+    become: yes
+
+# create smtp user to be used for sasl authentication
+  - name: create smtp user 
+    ansible.builtin.command:
+      cmd: "echo password | saslpasswd2 -p -c -u sentinel2.com smtp_courier"
+    args:
+      creates: "/etc/sasldb2"
+
+# start saslauthd
+  - name: enable and start saslauthd service
+    ansible.builtin.service:
+      name: saslauthd
+      enabled: yes
+      state: started
+    become: yes
+
+# restart postfix
+  - name: restart postfix
+    ansible.builtin.service:
+      name: postfix
+      state: restarted
+    become: yes
