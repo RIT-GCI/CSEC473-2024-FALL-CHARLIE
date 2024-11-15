@@ -27,12 +27,12 @@
       line: 'mynetworks = 10.22.1.0/8, 10.22.17.45/32'
     become: yes
 
-# changes smtpd_tls_security_level to be encrypted
-  - name: enable tls security level
+# changes smtpd_tls_security_level to be none
+  - name: disables tls security level
     lineinfile:
       path: /etc/postfix/main.cf
       search_string: '#smtpd_tls_security_level ='
-      line: 'smtpd_tls_security_level = encrypt'
+      line: 'smtpd_tls_security_level = none'
     become: yes
 
 # changes smtpd_sasl_auth_enabled to yes
