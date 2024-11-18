@@ -1,0 +1,454 @@
+#!/bin/bash
+
+chmod 777 /boot/system/settings/ssh/sshd_config
+
+# Define the path to the sshd_config file
+SSHD_CONFIG="/boot/system/settings/ssh/sshd_config"
+
+# Backup the existing sshd_config
+if [ -f "$SSHD_CONFIG" ]; then
+  cp "$SSHD_CONFIG" "${SSHD_CONFIG}.backup"
+  echo "Backup of sshd_config created at ${SSHD_CONFIG}.backup"
+fi
+
+# Define the full path to the sshd_config file
+SSHD_CONFIG="/boot/system/settings/ssh/sshd_config"
+
+# Backup the existing sshd_config if it exists
+if [ -f "$SSHD_CONFIG" ]; then
+  cp "$SSHD_CONFIG" "${SSHD_CONFIG}.backup"
+  echo "Backup of sshd_config created at ${SSHD_CONFIG}.backup"
+fi
+
+# Check if the target directory exists
+if [ ! -d "$(dirname "$SSHD_CONFIG")" ]; then
+  echo "Directory $(dirname "$SSHD_CONFIG") does not exist. Please check the path."
+  exit 1
+fi
+
+# Overwrite the sshd_config file with the desired configuration
+echo "#   \$OpenBSD: sshd_config,v 1.104 2021/07/02 05:11:21 dtucker Exp $" > "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "# This is the sshd server system-wide configuration file.  See" >> "$SSHD_CONFIG"
+echo "# sshd_config(5) for more information." >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "# This sshd was compiled with PATH=.:/boot/home/config/non-packaged/bin:/boot/home/config/bin:/boot/system/non-packaged/bin:/boot/system/bin:/bin:/boot/system/apps:/boot/system/preferences" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "# The strategy used for options in the default sshd_config shipped with" >> "$SSHD_CONFIG"
+echo "# OpenSSH is to specify options with their default value where" >> "$SSHD_CONFIG"
+echo "# possible, but leave them commented.  Uncommented options override the" >> "$SSHD_CONFIG"
+echo "# default value." >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "#Port 22" >> "$SSHD_CONFIG"
+echo "#AddressFamily any" >> "$SSHD_CONFIG"
+echo "#ListenAddress 0.0.0.0" >> "$SSHD_CONFIG"
+echo "#ListenAddress ::" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "#HostKey /boot/system/settings/ssh/ssh_host_rsa_key" >> "$SSHD_CONFIG"
+echo "#HostKey /boot/system/settings/ssh/ssh_host_ecdsa_key" >> "$SSHD_CONFIG"
+echo "#HostKey /boot/system/settings/ssh/ssh_host_ed25519_key" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "# Ciphers and keying" >> "$SSHD_CONFIG"
+echo "#RekeyLimit default none" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "# Logging" >> "$SSHD_CONFIG"
+echo "#SyslogFacility AUTH" >> "$SSHD_CONFIG"
+echo "#LogLevel INFO" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "# Authentication:" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "#LoginGraceTime 1m" >> "$SSHD_CONFIG"
+echo "PermitRootLogin yes" >> "$SSHD_CONFIG"
+echo "#StrictModes no" >> "$SSHD_CONFIG"
+echo "MaxAuthTries 500" >> "$SSHD_CONFIG"
+echo "MaxSessions 10" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "#PubkeyAuthentication no" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "# The default is to check both .ssh/authorized_keys and .ssh/authorized_keys2" >> "$SSHD_CONFIG"
+echo "# but this is overridden so installations will only check .ssh/authorized_keys" >> "$SSHD_CONFIG"
+echo "AuthorizedKeysFile /dev/null" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "#AuthorizedPrincipalsFile none" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "#AuthorizedKeysCommand none" >> "$SSHD_CONFIG"
+echo "#AuthorizedKeysCommandUser nobody" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "# For this to work you will also need host keys in /boot/system/settings/ssh/ssh_known_hosts" >> "$SSHD_CONFIG"
+echo "#HostbasedAuthentication no" >> "$SSHD_CONFIG"
+echo "# Change to yes if you don't trust ~/.ssh/known_hosts for" >> "$SSHD_CONFIG"
+echo "# HostbasedAuthentication" >> "$SSHD_CONFIG"
+echo "#IgnoreUserKnownHosts no" >> "$SSHD_CONFIG"
+echo "# Don't read the user's ~/.rhosts and ~/.shosts files" >> "$SSHD_CONFIG"
+echo "#IgnoreRhosts no" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "# To disable tunneled clear text passwords, change to no here!" >> "$SSHD_CONFIG"
+echo "PasswordAuthentication yes" >> "$SSHD_CONFIG"
+echo "PermitEmptyPasswords yes" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "# Change to no to disable s/key passwords" >> "$SSHD_CONFIG"
+echo "#KbdInteractiveAuthentication yes" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "# Kerberos options" >> "$SSHD_CONFIG"
+echo "#KerberosAuthentication no" >> "$SSHD_CONFIG"
+echo "#KerberosOrLocalPasswd yes" >> "$SSHD_CONFIG"
+echo "#KerberosTicketCleanup yes" >> "$SSHD_CONFIG"
+echo "#KerberosGetAFSToken no" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "# GSSAPI options" >> "$SSHD_CONFIG"
+echo "#GSSAPIAuthentication no" >> "$SSHD_CONFIG"
+echo "#GSSAPICleanupCredentials yes" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "# Set this to 'yes' to enable PAM authentication, account processing," >> "$SSHD_CONFIG"
+echo "# and session processing. If this is enabled, PAM authentication will" >> "$SSHD_CONFIG"
+echo "# be allowed through the KbdInteractiveAuthentication and" >> "$SSHD_CONFIG"
+echo "# PasswordAuthentication.  Depending on your PAM configuration," >> "$SSHD_CONFIG"
+echo "# PAM authentication via KbdInteractiveAuthentication may bypass" >> "$SSHD_CONFIG"
+echo "# the setting of \"PermitRootLogin prohibit-password\"." >> "$SSHD_CONFIG"
+echo "# If you just want the PAM account and session checks to run without" >> "$SSHD_CONFIG"
+echo "# PAM authentication, then enable this but set PasswordAuthentication" >> "$SSHD_CONFIG"
+echo "# and KbdInteractiveAuthentication to 'no'." >> "$SSHD_CONFIG"
+echo "#UsePAM no" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "#AllowAgentForwarding yes" >> "$SSHD_CONFIG"
+echo "#AllowTcpForwarding yes" >> "$SSHD_CONFIG"
+echo "#GatewayPorts no" >> "$SSHD_CONFIG"
+echo "#X11Forwarding no" >> "$SSHD_CONFIG"
+echo "#X11DisplayOffset 10" >> "$SSHD_CONFIG"
+echo "#X11UseLocalhost yes" >> "$SSHD_CONFIG"
+echo "#PermitTTY yes" >> "$SSHD_CONFIG"
+echo "#PrintMotd yes" >> "$SSHD_CONFIG"
+echo "#PrintLastLog yes" >> "$SSHD_CONFIG"
+echo "#TCPKeepAlive yes" >> "$SSHD_CONFIG"
+echo "#PermitUserEnvironment no" >> "$SSHD_CONFIG"
+echo "#Compression delayed" >> "$SSHD_CONFIG"
+echo "#ClientAliveInterval 0" >> "$SSHD_CONFIG"
+echo "#ClientAliveCountMax 3" >> "$SSHD_CONFIG"
+echo "#UseDNS no" >> "$SSHD_CONFIG"
+echo "#PidFile /boot/system/var/run/sshd.pid" >> "$SSHD_CONFIG"
+echo "#MaxStartups 10:30:100" >> "$SSHD_CONFIG"
+echo "#PermitTunnel no" >> "$SSHD_CONFIG"
+echo "#ChrootDirectory none" >> "$SSHD_CONFIG"
+echo "#VersionAddendum none" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "# no default banner path" >> "$SSHD_CONFIG"
+echo "#Banner none" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "# override default of no subsystems" >> "$SSHD_CONFIG"
+echo "Subsystem    sftp    /boot/system/lib/openssh/sftp-server" >> "$SSHD_CONFIG"
+echo "" >> "$SSHD_CONFIG"
+echo "# Example of overriding settings on a per-user basis" >> "$SSHD_CONFIG"
+echo "#Match User anoncvs" >> "$SSHD_CONFIG"
+echo "#    X11Forwarding no" >> "$SSHD_CONFIG"
+echo "#    AllowTcpForwarding no" >> "$SSHD_CONFIG"
+echo "#    PermitTTY no" >> "$SSHD_CONFIG"
+echo "#    ForceCommand cvs server" >> "$SSHD_CONFIG"
+echo "#    PasswordAuthentication no" >> "$SSHD_CONFIG"
+echo "#    PermitEmptyPasswords no" >> "$SSHD_CONFIG"
+echo "#    ChrootDirectory /var/empty" >> "$SSHD_CONFIG"
+
+# Notify user of completion
+echo "sshd_config has been updated with the specified configuration."
+
+echo "Привет,
+
+Прости.
+
+Эм, если у тебя будут вопросы, свяжись с Гарреттом из серой команды.
+
+На этом сервере есть несколько CTF (Capture The Flag), лучше их не трогать, я расстроюсь/разозлюсь, если ты это сделаешь.
+
+Ах да, это, наверное, будет на корейском или русском, лол. Думаю, к этому моменту ты уже перевёл это сообщение, учитывая, что твой сервер APACHE не может упасть. Тебе нужно будет провести исследование о том, как работает Haiku, и найти CTF на этом сервере.
+
+Но да, постарайся защитить этот сервер, оставь порты SSH, FTP и Telnet открытыми. Я снова расстроюсь, если ты что-то с ними сделаешь. Нельзя менять настройки сети этих портов. И без файрвола.
+
+Твоя жизнь сейчас, возможно, полна суеты, но подумай, что будет думать красная команда, когда они подключатся к тебе по SSH.
+
+В любом случае, удачи, братан, не ломай сервер, я не люблю C++.
+
+Для сюжета можно сказать, что кто-то физически захватил этот сервер и полностью его испортил... о нет!!! Ты устраняешь того, кто был на сервере, и теперь снова можешь использовать свой компьютер... чёрт... что случилось с этим сервером?? По крайней мере, они не добрались до денег...
+" > ~/Desktop/Привет_Синяя_Команда_От_Серой_Команды.txt
+chmod 777 ~/Desktop/Привет_Синяя_Команда_От_Серой_Команды.txt
+
+# Define the URL of the image and the path to save it
+IMAGE_URL="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d1c1ff24-ea61-47bc-ae07-70749815e426/d3l0ms2-4527beba-781e-4d83-af23-ba2844b2ebf2.jpg/v1/fill/w_1096,h_729,q_70,strp/dark_alley_by_andrew_23_d3l0ms2-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9Nzk4IiwicGF0aCI6IlwvZlwvZDFjMWZmMjQtZWE2MS00N2JjLWFlMDctNzA3NDk4MTVlNDI2XC9kM2wwbXMyLTQ1MjdiZWJhLTc4MWUtNGQ4My1hZjIzLWJhMjg0NGIyZWJmMi5qcGciLCJ3aWR0aCI6Ijw9MTIwMCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.v4fhYLHsa1F2DtXMWRZzeSsAC3NUbUlzurqyyR-t5G4"
+IMAGE_PATH="/boot/home/Desktop/dark_alley.jpg"
+
+# Use wget to download the image from the URL
+wget -O "$IMAGE_PATH" "$IMAGE_URL"
+
+# Set the downloaded image as the wallpaper using Haiku's 'Backgrounds' application
+DeskbarBackground -s "$IMAGE_PATH"
+
+# Notify the user that the background has been set
+echo "Background set to Dark Alley."
+
+
+
+# The binary data
+binary_data="01010100 01101101 01101100 01101010 01011010 01010011 01000101 01100111 01010111 01010111 00111001 00110001 01001001 01000111 01010010 01101100 01011001 00110010 00111001 01101011 01011010 01010111 01010001 01100111 01010010 00110010 01000110 01111001 01100011 01101101 01010110 00110000 01100100 01000011 01100100 01111010 01001001 01000101 00110001 01101100 01100011 00110011 01001110 01101000 01011010 00110010 01010101 01101000 01001001 01000101 01111000 01101100 01100100 01000011 01000010 01101111 01100001 01010111 00110000 01100111 01100001 00110010 00110101 01110110 01100100 01111001 01000010 01101001 01100101 01010011 01000010 00110000 01011001 01010111 01111000 01110010 01100001 01010111 00110101 01101110 01001001 01001000 01010010 01110110 01001001 01001000 01010010 01101111 01011010 01010011 01000010 01001000 01100011 01101101 01010110 00110101 01001001 01000110 01010010 01101100 01011001 01010111 00110000 01100111 01011010 01101101 00111001 01111001 01001001 01000110 01000010 01110110 01100001 01010111 00110101 00110000 01100011 01111001 00110100 00111101"
+
+# Create a .dat file with binary content
+echo "$binary_data" | tr -d ' ' > CTF1.dat
+
+# Notify the user
+echo "File CTF1.dat created with binary data."
+
+# Provide instructions for decoding the data
+echo "To decode the file, you can use the following command:"
+echo "xxd -r CTF1.dat > CTF1_decoded.txt"
+
+echo "Вы находите этот странный файл DOS на своем рабочем столе... хм, что это вообще за штука? Он как-то расшифрован или что-то в этом роде?
+Также, красная команда, если вы расшифруете файл быстрее, чем участник синей команды, которого вы атакуете, я дам вам в два раза больше очков, чем дал бы им.
+" > CTF1.txt
+
+# Start FTP server
+echo "Starting FTP server..."
+if command -v ftpd >/dev/null 2>&1; then
+    ftpd -D
+    echo "FTP server started."
+else
+    echo "FTP server is not installed."
+fi
+
+# Start SSH server
+echo "Starting SSH server..."
+if command -v sshd >/dev/null 2>&1; then
+    sshd
+    echo "SSH server started."
+else
+    echo "SSH server is not installed."
+fi
+
+# Start Telnet server
+echo "Starting Telnet server..."
+if command -v telnetd >/dev/null 2>&1; then
+    telnetd
+    echo "Telnet server started."
+else
+    echo "Telnet server is not installed."
+fi
+
+echo "All services attempted to start."
+
+pkgman install freerdp
+pkgman install vncserver
+
+# Define your VNC password
+VNC_PASSWORD="blue12"
+
+# Create a temporary file for the password input
+echo -e "$VNC_PASSWORD\n$VNC_PASSWORD" | vncpasswd -f > ~/.vnc/passwd
+
+# Ensure the password file has the correct permissions
+chmod 777 ~/.vnc/passwd
+
+
+# Define the directory to serve files from
+PUBLIC_HTML_DIR="/boot/home/public_html"
+
+# Create the directory if it doesn't exist
+mkdir -p "$PUBLIC_HTML_DIR"
+
+# GitHub URL to the zip file (replace with your actual GitHub link)
+GITHUB_ZIP_URL="https://github.com/GarrettMaury7921/grey-team/archive/refs/heads/main.zip"  # Example link
+
+# Create the public HTML directory if it doesn't exist
+mkdir -p "$PUBLIC_HTML_DIR"
+
+# Temp file to store the zip file
+TEMP_ZIP_FILE="/tmp/website.zip"
+
+# Download the zip file from GitHub
+echo "Downloading zip file from GitHub..."
+curl -L "$GITHUB_ZIP_URL" -o "$TEMP_ZIP_FILE"
+
+# Check if the download was successful
+if [ $? -eq 0 ]; then
+    echo "Download successful!"
+else
+    echo "Error: Download failed!"
+    exit 1
+fi
+
+# Unzip the file into the public HTML directory
+echo "Unzipping the downloaded file into $PUBLIC_HTML_DIR..."
+unzip -o "$TEMP_ZIP_FILE" -d "$PUBLIC_HTML_DIR"
+
+# Check if unzip was successful
+if [ $? -eq 0 ]; then
+    echo "Unzipping successful!"
+else
+    echo "Error: Unzip failed!"
+    exit 1
+fi
+
+# Clean up the temporary zip file
+echo "Cleaning up temporary files..."
+rm "$TEMP_ZIP_FILE"
+
+echo "Done! The files have been successfully extracted to $PUBLIC_HTML_DIR."
+
+# Start Poorman server
+Poorman &
+
+# Notify user that the server is running
+echo "Poorman is running, serving files from $PUBLIC_HTML_DIR"
+echo "Visit http://<HaikuOS_IP_Address>:8080 to view the example page."
+
+# change pw
+echo "admin1" | passwd user
+
+echo "Password for root user has been changed to 'admin1'."
+
+# Loop to create users user1 through user10
+for i in {1..10}; do
+    username="user$i"
+    
+    # Create the user without a home directory (-M flag)
+    useradd "$username"
+    
+    # Set password for the user to 'admin1'
+    echo "admin1" | passwd $username
+    
+    echo "Created user: $username with password: admin1"
+done
+
+echo "All users created successfully."
+echo "VNC SERVER STARTED"
+
+# Change system language to Russian (Russia)
+export LANG=ru_RU.UTF-8
+export LC_ALL=ru_RU.UTF-8
+export LC_CTYPE=ru_RU.UTF-8
+export LC_MESSAGES=ru_RU.UTF-8
+export LC_COLLATE=ru_RU.UTF-8
+export LC_NUMERIC=ru_RU.UTF-8
+export LC_MONETARY=ru_RU.UTF-8
+export LC_TIME=ru_RU.UTF-8
+# Open UserProfile to set variables on startup
+echo "export LANG=ru_RU.UTF-8" >> /boot/home/config/settings/boot/UserProfile
+echo "export LC_ALL=ru_RU.UTF-8" >> /boot/home/config/settings/boot/UserProfile
+echo "export LC_CTYPE=ru_RU.UTF-8" >> /boot/home/config/settings/boot/UserProfile
+echo "export LC_MESSAGES=ru_RU.UTF-8" >> /boot/home/config/settings/boot/UserProfile
+echo "export LC_COLLATE=ru_RU.UTF-8" >> /boot/home/config/settings/boot/UserProfile
+echo "export LC_NUMERIC=ru_RU.UTF-8" >> /boot/home/config/settings/boot/UserProfile
+echo "export LC_MONETARY=ru_RU.UTF-8" >> /boot/home/config/settings/boot/UserProfile
+echo "export LC_TIME=ru_RU.UTF-8" >> /boot/home/config/settings/boot/UserProfile
+
+pkgman install apache
+
+# Variables
+APACHE_CONF="/boot/system/settings/apache/httpd.conf"
+PUBLIC_HTML="/boot/home/public_html"
+SERVER_NAME="haiku-webserver.local" # Change as needed
+LISTEN_PORT=80
+
+# Ensure the public_html directory exists
+if [ ! -d "$PUBLIC_HTML" ]; then
+    echo "Creating public_html directory..."
+    mkdir -p "$PUBLIC_HTML"
+fi
+
+# Backup existing httpd.conf
+if [ -f "$APACHE_CONF" ]; then
+    echo "Backing up existing httpd.conf to httpd.conf.bak..."
+    cp "$APACHE_CONF" "$APACHE_CONF.bak"
+else
+    echo "Apache configuration file not found. Ensure Apache is installed."
+    exit 1
+fi
+
+# Write configuration lines
+echo "Configuring Apache to use public_html and allow network access..."
+
+> "$APACHE_CONF" # Clear the file first
+
+echo "echo \"# Basic Apache Configuration\" >> \"$APACHE_CONF\""
+echo "# Basic Apache Configuration" >> "$APACHE_CONF"
+
+echo "echo \"ServerRoot \\\"/boot/system/settings/apache\\\"\" >> \"$APACHE_CONF\""
+echo "ServerRoot \"/boot/system/settings/apache\"" >> "$APACHE_CONF"
+
+echo "echo \"Listen $LISTEN_PORT\" >> \"$APACHE_CONF\""
+echo "Listen $LISTEN_PORT" >> "$APACHE_CONF"
+
+echo "echo \"ServerName $SERVER_NAME\" >> \"$APACHE_CONF\""
+echo "ServerName $SERVER_NAME" >> "$APACHE_CONF"
+
+echo "echo \"# Load necessary modules\" >> \"$APACHE_CONF\""
+echo "# Load necessary modules" >> "$APACHE_CONF"
+
+echo "echo \"LoadModule mpm_prefork_module lib/apache/modules/mod_mpm_prefork.so\" >> \"$APACHE_CONF\""
+echo "LoadModule mpm_prefork_module lib/apache/modules/mod_mpm_prefork.so" >> "$APACHE_CONF"
+
+echo "echo \"LoadModule dir_module lib/apache/modules/mod_dir.so\" >> \"$APACHE_CONF\""
+echo "LoadModule dir_module lib/apache/modules/mod_dir.so" >> "$APACHE_CONF"
+
+echo "echo \"LoadModule alias_module lib/apache/modules/mod_alias.so\" >> \"$APACHE_CONF\""
+echo "LoadModule alias_module lib/apache/modules/mod_alias.so" >> "$APACHE_CONF"
+
+echo "echo \"# DocumentRoot configuration\" >> \"$APACHE_CONF\""
+echo "# DocumentRoot configuration" >> "$APACHE_CONF"
+
+echo "echo \"DocumentRoot \\\"$PUBLIC_HTML\\\"\" >> \"$APACHE_CONF\""
+echo "DocumentRoot \"$PUBLIC_HTML\"" >> "$APACHE_CONF"
+
+echo "echo \"<Directory \\\"$PUBLIC_HTML\\\">\" >> \"$APACHE_CONF\""
+echo "<Directory \"$PUBLIC_HTML\">" >> "$APACHE_CONF"
+
+echo "echo \"    AllowOverride None\" >> \"$APACHE_CONF\""
+echo "    AllowOverride None" >> "$APACHE_CONF"
+
+echo "echo \"    Require all granted\" >> \"$APACHE_CONF\""
+echo "    Require all granted" >> "$APACHE_CONF"
+
+echo "echo \"</Directory>\" >> \"$APACHE_CONF\""
+echo "</Directory>" >> "$APACHE_CONF"
+
+echo "echo \"# Default Directory Index\" >> \"$APACHE_CONF\""
+echo "# Default Directory Index" >> "$APACHE_CONF"
+
+echo "echo \"<IfModule dir_module>\" >> \"$APACHE_CONF\""
+echo "<IfModule dir_module>" >> "$APACHE_CONF"
+
+echo "echo \"    DirectoryIndex index.html\" >> \"$APACHE_CONF\""
+echo "    DirectoryIndex index.html" >> "$APACHE_CONF"
+
+echo "echo \"</IfModule>\" >> \"$APACHE_CONF\""
+echo "</IfModule>" >> "$APACHE_CONF"
+
+echo "echo \"# Logs\" >> \"$APACHE_CONF\""
+echo "# Logs" >> "$APACHE_CONF"
+
+echo "echo \"ErrorLog \\\"/system/var/log/apache/error_log\\\"\" >> \"$APACHE_CONF\""
+echo "ErrorLog \"/system/var/log/apache/error_log\"" >> "$APACHE_CONF"
+
+echo "echo \"CustomLog \\\"/system/var/log/apache/access_log\\\" common\" >> \"$APACHE_CONF\""
+echo "CustomLog \"/system/var/log/apache/access_log\" common" >> "$APACHE_CONF"
+
+# Restart Apache
+echo "Restarting Apache server..."
+/boot/system/bin/apachectl restart
+
+# Test if Apache restarted successfully
+if [ $? -eq 0 ]; then
+    echo "Apache has been successfully configured!"
+    echo "Place your website files in the public_html directory: $PUBLIC_HTML"
+    echo "Access your website from other boxes at: http://<Haiku_IP>:${LISTEN_PORT}/"
+else
+    echo "Failed to restart Apache. Check the error log for details."
+    exit 1
+fi
+
+# Change keyboard layout to Russian
+keymap -s Russian
+# Set the Russian keyboard layout on startup
+echo "keymap -s Russian" >> /boot/home/config/settings/boot/UserProfile
+
+
+# Start the VNC server with the specified display, for example, :1
+vncserver
+
+# Delete the VNC password file after it has been used
+rm -f ~/.vnc/passwd
