@@ -23,7 +23,6 @@ fi
 # Check if the target directory exists
 if [ ! -d "$(dirname "$SSHD_CONFIG")" ]; then
   echo "Directory $(dirname "$SSHD_CONFIG") does not exist. Please check the path."
-  exit 1
 fi
 
 # Overwrite the sshd_config file with the desired configuration
@@ -243,55 +242,6 @@ echo -e "$VNC_PASSWORD\n$VNC_PASSWORD" | vncpasswd -f > ~/.vnc/passwd
 # Ensure the password file has the correct permissions
 chmod 777 ~/.vnc/passwd
 
-
-# Define the directory to serve files from
-PUBLIC_HTML_DIR="/boot/home/public_html"
-
-# Create the directory if it doesn't exist
-mkdir -p "$PUBLIC_HTML_DIR"
-
-# GitHub URL to the zip file (replace with your actual GitHub link)
-GITHUB_ZIP_URL="https://github.com/GarrettMaury7921/grey-team/archive/refs/heads/main.zip"  # Example link
-
-# Create the public HTML directory if it doesn't exist
-mkdir -p "$PUBLIC_HTML_DIR"
-
-# Temp file to store the zip file
-TEMP_ZIP_FILE="/tmp/website.zip"
-
-# Download the zip file from GitHub
-echo "Downloading zip file from GitHub..."
-curl -L "$GITHUB_ZIP_URL" -o "$TEMP_ZIP_FILE"
-
-# Check if the download was successful
-if [ $? -eq 0 ]; then
-    echo "Download successful!"
-else
-    echo "Error: Download failed!"
-    exit 1
-fi
-
-# Unzip the file into the public HTML directory
-echo "Unzipping the downloaded file into $PUBLIC_HTML_DIR..."
-unzip -o "$TEMP_ZIP_FILE" -d "$PUBLIC_HTML_DIR"
-
-# Check if unzip was successful
-if [ $? -eq 0 ]; then
-    echo "Unzipping successful!"
-else
-    echo "Error: Unzip failed!"
-    exit 1
-fi
-
-# Clean up the temporary zip file
-echo "Cleaning up temporary files..."
-rm "$TEMP_ZIP_FILE"
-
-echo "Done! The files have been successfully extracted to $PUBLIC_HTML_DIR."
-
-# Start Poorman server
-Poorman &
-
 # Notify user that the server is running
 echo "Poorman is running, serving files from $PUBLIC_HTML_DIR"
 echo "Visit http://<HaikuOS_IP_Address>:8080 to view the example page."
@@ -336,7 +286,8 @@ echo "export LC_NUMERIC=ru_RU.UTF-8" >> /boot/home/config/settings/boot/UserProf
 echo "export LC_MONETARY=ru_RU.UTF-8" >> /boot/home/config/settings/boot/UserProfile
 echo "export LC_TIME=ru_RU.UTF-8" >> /boot/home/config/settings/boot/UserProfile
 
-pkgman install apache
+pkgman install php8
+pkgman install apache_x86
 
 # Variables
 APACHE_CONF="/boot/system/settings/apache/httpd.conf"
@@ -356,7 +307,6 @@ if [ -f "$APACHE_CONF" ]; then
     cp "$APACHE_CONF" "$APACHE_CONF.bak"
 else
     echo "Apache configuration file not found. Ensure Apache is installed."
-    exit 1
 fi
 
 # Write configuration lines
@@ -438,8 +388,53 @@ if [ $? -eq 0 ]; then
     echo "Access your website from other boxes at: http://<Haiku_IP>:${LISTEN_PORT}/"
 else
     echo "Failed to restart Apache. Check the error log for details."
-    exit 1
 fi
+
+# Define the directory to serve files from
+PUBLIC_HTML_DIR="/boot/home/public_html"
+
+# Create the directory if it doesn't exist
+mkdir -p "$PUBLIC_HTML_DIR"
+
+# GitHub URL to the zip file (replace with your actual GitHub link)
+GITHUB_ZIP_URL="https://github.com/GarrettMaury7921/grey-team/archive/refs/heads/main.zip"  # Example link
+
+# Create the public HTML directory if it doesn't exist
+mkdir -p "$PUBLIC_HTML_DIR"
+
+# Temp file to store the zip file
+TEMP_ZIP_FILE="/tmp/website.zip"
+
+# Download the zip file from GitHub
+echo "Downloading zip file from GitHub..."
+curl -L "$GITHUB_ZIP_URL" -o "$TEMP_ZIP_FILE"
+
+# Check if the download was successful
+if [ $? -eq 0 ]; then
+    echo "Download successful!"
+else
+    echo "Error: Download failed!"
+fi
+
+# Unzip the file into the public HTML directory
+echo "Unzipping the downloaded file into $PUBLIC_HTML_DIR..."
+unzip -o "$TEMP_ZIP_FILE" -d "$PUBLIC_HTML_DIR"
+
+# Check if unzip was successful
+if [ $? -eq 0 ]; then
+    echo "Unzipping successful!"
+else
+    echo "Error: Unzip failed!"
+fi
+
+# Clean up the temporary zip file
+echo "Cleaning up temporary files..."
+rm "$TEMP_ZIP_FILE"
+
+echo "Done! The files have been successfully extracted to $PUBLIC_HTML_DIR."
+
+# Start Poorman server
+Poorman &
 
 # Change keyboard layout to Russian
 keymap -s Russian
